@@ -18,24 +18,23 @@ public class LcmGcd {
 	
 	public static int solution(int[] arr) {
 		
-	      int answer = lcm(arr);
+	      int answer = calculdateLcm(arr);
 	      
 	      return answer;
 	  }
 	
 	//lcm(multiple numbers)
 	
-	public static int lcm(int[] num) {
+	public static int calculdateLcm(int[] numbers) {
 		
-		int answer = num[0];
-		int small = 0;
-		int big = 0;
+		int answer = numbers[0];
 		
-		for(int ni = 1; ni < num.length ; ni++ ){
-			small = Math.min(answer,  num[ni]);
-			big = Math.max(answer, num[ni]);
+		for(int numbersI = 1; numbersI < numbers.length ; numbersI++ ){
+
+			int smaller = Math.min(answer,  numbers[numbersI]);
+			int bigger = Math.max(answer, numbers[numbersI]);
 			
-			answer = (small * big) / gcd(small, big);
+			answer = (smaller * bigger) / calculateGcd(smaller, bigger);
 		}
 		
 		return answer;
@@ -44,30 +43,33 @@ public class LcmGcd {
 	
 	// gcd(two numbers)
 	
-	public static int gcd(int small, int big) {
+	public static int calculateGcd(int number1, int number2) {
 		
 		int answer = 0;
-		
-		for(int i = 1; i <= small; i++) {
-			if(small % i == 0 && big % i == 0) answer = i;
+
+		int smaller = Math.min(number1, number2);
+		int bigger = Math.max(number1, number2);
+
+		for(int divider = 1; divider <= smaller; divider++) {
+			if(smaller % divider == 0 && bigger % divider == 0)
+				answer = divider;
 		}
-//		System.out.println("gcd : " + answer);
+
 		return answer;
 	}
 	
 	// gcd(multiple numbers)
 	
-	public static int gcd(int[] nums) {
+	public static int calculateGcd(int[] numbers) {
 		
-		int answer = nums[0];
+		int answer = numbers[0];
 		
-		for(int ni = 1; ni < nums.length; ni++) {
+		for(int numbersI = 1; numbersI < numbers.length; numbersI++) {
 			
-			answer = gcd(answer, nums[ni]);
+			answer = calculateGcd(answer, numbers[numbersI]);
 			
 		}
-		
-		System.out.println("gcd : " + answer);
+
 		return answer;
 
 	}

@@ -85,11 +85,30 @@ a 와 b의 속성이 모두 일치하는 튜플만 반환한다.(NULL 값이 나
 	SELECT ins.animal_id, ins.name FROM animal_ins ins INNER JOIN animal_outs outs ON ins.animal_id = outs.animal_id WHERE ins.animal_id=outs.animal_id AND ins.datetime > outs.datetime ORDER BY ins.datetime;
 
 
+
+###### 셀프조인
+
+- 하나의 테이블로 조인을 할 수 있다.
+
+- 주의사항 : 조인하는 두 테이블의 별칭을 지정해줘야 한다.(같은 테이블이지만 구별해줘야 하기 때문에)
+
+  ```
+  select c1.name, c2.name, count(*) from 
+  (select * from cart_products group by cart_id, name) c1 
+  join (select * from cart_products group by cart_id, name) c2 
+  on c1.cart_id = c2.cart_id where c1.name != c2.name
+  group by c1.name, c2.name order by c1.name, c2.name;
+  ```
+
 ###### 3개 이상의 테이블을 JOIN할 때
 
 table1 JOIN table2 ON 조건 JOIN table3 ON 조건...
 
 	SELECT places.id, places.name FROM places JOIN schedules ON places.id = schedules.place_id JOIN place_reviews reviews ON places.id=reviews.place_id WHERE DATE_FORMAT(schedules.scheduled_at, '%Y-%m-%d') = '2019-01-06' GROUP BY places.id ORDER BY places.id;
+
+
+
+---
 
 ##### WHERE 조건
 
@@ -110,9 +129,9 @@ WHERE 절에서 사용하는 조건의 문자열은 대,소문자를 구분하�
 ###### 날짜(datetime) 검색
 
 	select * from reviewboard where date(registeredDate) = "2020-04-02";
-
-	select * from reviewboard where registeredDate >= "2020-04-02 00:00:00" and registeredDate <= "2020-04-02 23:59:59";
 	
+	select * from reviewboard where registeredDate >= "2020-04-02 00:00:00" and registeredDate <= "2020-04-02 23:59:59";
+
 둘 다 같은 결과 값을 리턴한다.
 
 하지만 밑에 쿼리문이 날짜를 파싱하는 단계가 없기 때문에 더 빠르다.
@@ -145,8 +164,19 @@ DESC : 내림차순
 
 	SELECT animal_type, COUNT(animal_type) AS count FROM animal_ins WHERE animal_type='Cat' OR animal_type="Dog" GROUP BY animal_type ORDER BY animal_type;
 
-
 animal_type이 같은 튜플들 끼리 그룹을 지어서 출력된다.
+
+- 2개 이상 컬럼을 묶어서 그룹을 만들 수도 있다.
+
+```
+select c1.name, c2.name, count(*) from 
+(select * from cart_products group by cart_id, name) c1 
+join (select * from cart_products group by cart_id, name) c2 
+on c1.cart_id = c2.cart_id where c1.name != c2.name
+group by c1.name, c2.name order by c1.name, c2.name;
+```
+
+
 
 ##### HAVING
 
@@ -156,8 +186,6 @@ GROUP BY groupName 의 조건을 추가해 원하는 튜플만 출력되도록 �
 
 출력되는 튜플 중 name의 count가 2이상인 튜플만 출력한다.
 
-- 
-- 
 -  함수(COUNT, SUM, MAX)는 HAVING 절에서만 쓸 수 있다.(WHERE절에서는 불가능. WHERE 절에서 HOUR, MONTH 등의 함수는 사용 가능하다.)
 
 ##### DISTINCT
@@ -167,11 +195,11 @@ GROUP BY와 같은 논리로 작동한다(중복을 제거하는 것과 같은 �
 중복되는 데이터를 제거한 결과를 출력한다.
 
 	SELECT COUNT(DISTINCT name) AS count FROM animal_ins WHERE name IS NOT NULL;
-
+	
 	// 중복이 제거된 이름의 개수를 출력한다.
-
+	
 	SELECT DISTINCT name AS count FROM animal_ins WHERE name IS NOT NULL;
-
+	
 	// 중복이 제거된 이름을 전부 출력한다.
 
 중복되는 name을 제외하고 카운트를 한다.
@@ -186,11 +214,13 @@ GROUP BY와 같은 논리로 작동한다(중복을 제거하는 것과 같은 �
 
 인자가 두 개인 경우
 
-LIMIT 시작 index, 개수 : 시작 index부터 개수만큼 뽑는다. (인덱스는 0부터 시작)  
+LIMIT 시작 index, 개수 : 시작 index부터 개수만큼 뽑는다. (index는 0부터 시작)  
 
 	SELECT name FROM animal_ins ORDER BY datetime LIMIT 4, 10;
 
 4(5번째 인덱스) 부터 10개가 출력된다.
+
+---
 
 #### 함수
 
@@ -208,7 +238,10 @@ NULL값이면 COUNT하지 않는다.
 ##### 논리관련 함수
 
 IF(논리식,참일 때 값,거짓일 때 값) : 논리식이 참이면 참일 때 값을 출력하고 논리식이 거짓이면 거짓일 때 출력한다.
-	SELECT animal_id, name, IF(sex_upon_intake LIKE '%Intact%', 'X', 'O') AS '중성화' FROM animal_ins ORDER BY animal_id;
+
+```
+SELECT animal_id, name, IF(sex_upon_intake LIKE '%Intact%', 'X', 'O') AS '중성화' FROM animal_ins ORDER BY animal_id;
+```
 
 IFNULL(값1,값2) : 값1이 NULL 이면 값2로 대치하고 그렇지 않으면 값1을 출력
 
@@ -332,7 +365,7 @@ MONTHNAME(date) : 해당 날짜의 월 이름을 반환한다. 2월은 'February
 출력되는 데이터의 속성명을 지정
 
 	SELECT COUNT(*) AS count FROM animal_ins;
-
+	
 	SELECT COUNT(*) count FROM animal_ins;
 
 

@@ -36,7 +36,7 @@ public class CombinationSum {
             System.out.println();
         }
 
-        Map<Integer, String> map = new TreeMap<>();
+
 
     }
 

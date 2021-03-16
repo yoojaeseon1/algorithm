@@ -57,10 +57,6 @@ public class MaximumNumber {
 
         Map<String, Integer> substringToCount = new HashMap<>();
 
-//        for(int si = 0; si <= s.length() - minSize; si++) {
-//            putCorrectSubstring(s, si, maxLetters, minSize);
-//        }
-
         StringBuilder substringBuilder = new StringBuilder(s.substring(0, minSize));
         String substring = substringBuilder.toString();
         if(isCorrectSubstring(substring, maxLetters)){
@@ -95,32 +91,6 @@ public class MaximumNumber {
 
         return maxFrequency;
     }
-
-//    public void putCorrectSubstring(String s, int startIndex, int maxLetters, int minSize) {
-//        boolean[] isUsedAlphabets = new boolean[26];
-//        int numLetters = 0;
-//
-//        for(int si = startIndex; si < startIndex + minSize; si++) {
-//            int currentAlphabetAscii = s.charAt(si) - 'a';
-//
-//            if(!isUsedAlphabets[currentAlphabetAscii]) {
-//                numLetters++;
-//                isUsedAlphabets[currentAlphabetAscii] = true;
-//            }
-//
-//            if(numLetters > maxLetters)
-//                return;
-//        }
-//
-//        String substring = s.substring(startIndex, startIndex + minSize);
-//        int numSubstring = substringToCount.getOrDefault(substring, 0);
-//
-//        if(numSubstring > 0)
-//            substringToCount.put(substring, numSubstring+1);
-//        else
-//            substringToCount.put(substring, 1);
-//
-//    }
 
     public boolean isCorrectSubstring(String s, int maxLetters) {
         boolean[] isUsedAlphabets = new boolean[26];

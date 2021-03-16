@@ -228,14 +228,14 @@ LIMIT 시작 index, 개수 : 시작 index부터 개수만큼 뽑는다. (index�
 
 COUNT/SUM/AVG/MAX/MIN(속성명) : 개수, 합계, 평균, 최댓값, 최솟값
 
-- 조건으로 사용할 때는 반드시 GROUP BY절의 HAVING절에서만 사용할 수 있다.(WHERE절에서 사용불가, 집계를 위해서는 그룹화가 필수니까)
+- 조건으로 사용할 때는 반드시 HAVING절에서만 사용할 수 있다.(WHERE절에서 사용불가, 집계를 위해서는 그룹화가 필수니까)
 
 
 ###### COUNT(속성명)의 경우 
 
 NULL값이면 COUNT하지 않는다.
 
-##### 논리관련 함수
+##### 조건문
 
 IF(논리식,참일 때 값,거짓일 때 값) : 논리식이 참이면 참일 때 값을 출력하고 논리식이 거짓이면 거짓일 때 출력한다.
 
@@ -243,7 +243,7 @@ IF(논리식,참일 때 값,거짓일 때 값) : 논리식이 참이면 참일 �
 SELECT animal_id, name, IF(sex_upon_intake LIKE '%Intact%', 'X', 'O') AS '중성화' FROM animal_ins ORDER BY animal_id;
 ```
 
-IFNULL(값1,값2) : 값1이 NULL 이면 값2로 대치하고 그렇지 않으면 값1을 출력
+IFNULL(값1,값2) : 값1이 NULL 이면 값2로 대체하고 그렇지 않으면 값1을 출력
 
 	SELECT animal_type, IFNULL(name, 'No name'), sex_upon_intake FROM animal_ins ORDER BY animal_id;
 

@@ -15,8 +15,35 @@ public class Combination {
 		System.out.println(computeCombiValue(4,2));
 		
 	}
+
+	// combination using for loop 1 (이걸로 통일하자)
+
+	// nextIndex 없이 모든 loop를 0부터 하면 순열로 사용할 수 있다.
+
+	public void selectIndices(String[] source, int nextIndex, int numSelected, int targetNumSelected) {
+
+		if(numSelected == targetNumSelected) {
+
+			StringBuilder condition = new StringBuilder();
+
+			for (int sourceI = 0; sourceI < source.length - 1; sourceI++) {
+				condition.append(source[sourceI]);
+			}
+
+			return;
+		}
+
+
+		for(int sourceI = nextIndex; sourceI < source.length-1; sourceI++) {
+			String currentCondition = source[sourceI];
+			source[sourceI] = "-";
+			selectIndices(source, sourceI+1, numSelected + 1, targetNumSelected);
+			source[sourceI] = currentCondition;
+		}
+
+	}
 	
-	// combination using for loop
+	// combination using for loop 2
 	
 	public static void selectNumber(int[] source, int[] selectedIndices, int selectedIndex, int nextIndex) {
 		

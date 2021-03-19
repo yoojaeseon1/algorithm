@@ -47,9 +47,9 @@ public class BinarySearch {
         return -1;
     }
 
-    // lower bound(target 이상인 값 중 맨 앞의 index)
+    // lower bound(target 이상인 값 중 맨 처음 index)
 
-    public int searchLowerBound(int[] numbers, int target){
+    public int searchLowerBound(int[] numbers, int targetNumber){
 
         int startIndex = 0;
         int endIndex = numbers.length - 1;
@@ -58,7 +58,7 @@ public class BinarySearch {
 
             int midIndex= (startIndex + endIndex) / 2;
 
-            if(numbers[midIndex] < target){
+            if(numbers[midIndex] < targetNumber){
                 startIndex=midIndex+1;
             }else{
                 endIndex=midIndex-1;
@@ -68,9 +68,9 @@ public class BinarySearch {
         return startIndex;
     }
 
-    // upper bound(target 보다 큰 값 중 맨 앞의 index)
+    // upper bound(target 보다 큰 값 중 맨 처음 index)
 
-    public int searchUpperBound(int[] numbers, int target){
+    public int searchUpperBound(int[] numbers, int targetNumber){
 
         int startIndex = 0;
         int endIndex = numbers.length - 1;
@@ -79,7 +79,7 @@ public class BinarySearch {
 
             int midIndex= (startIndex + endIndex) / 2;
 
-            if(numbers[midIndex] <= target){
+            if(numbers[midIndex] <= targetNumber){
                 startIndex=midIndex+1;
             }else{
                 endIndex=midIndex-1;

@@ -102,7 +102,7 @@ DFS가 아니어도 구현 가능하지만 DFS에서 Stack을 사용하는 논�
 					visited[board[y+dy[i]][x+dx[i]] - 'A'] = false; // 백트래킹 되면서 실행되었던 노드가 실행순서 반대로 방문취소된다.
 				}
 			}
-			
+
 static 변수 중에서 자주 초기화되는 변수를 함수의 인자로 넣어야 할지 그냥 static으로 써야 할지 고민해보자
 (static 변수는 자주 초기화되지 않는 경우에 쓰는 것이 좋다.(method영역에 올라가서 시스템이 종료 될 때 까지 지워지지 않으니까)) 
 
@@ -124,7 +124,7 @@ ex) 회의실 배정 문제 : 현재 상황에서 가장 빨리 배정할 수 �
 				selected++;
 			}
 		}
-		
+
 ---
 
 #### DP
@@ -146,13 +146,13 @@ ex) 회의실 배정 문제 : 현재 상황에서 가장 빨리 배정할 수 �
       
       int maxSale = 0;
       for(int vI = 0; vI < maxSales.length; vI++) {
-    	  maxSale = Math.max(maxSale, v[vI]);
-    	  maxSales[vI] = maxSale;
+        maxSale = Math.max(maxSale, v[vI]);
+        maxSales[vI] = maxSale;
       }
       
       int maxProfit = -999999999;
       for(int vI = 1; vI < v.length; vI++) {
-    	maxProfit = Math.max(maxProfit, maxSales[vI-1] - v[vI]);  
+      maxProfit = Math.max(maxProfit, maxSales[vI-1] - v[vI]);  
       }
       
       return maxProfit;
@@ -188,9 +188,9 @@ ex) K번째 수 문제
 그리고 출력할 때는 최대 비용이면 0으로 출력하도록 조건을 넣어 출력한다.
 
 		for (int throughStop = 1; throughStop < feesOfRoute.length; throughStop++) {
-
+	
 			for (int startStop = 1; startStop < feesOfRoute.length; startStop++) {
-
+	
 				for (int endStop = 1; endStop < feesOfRoute[startStop].length; endStop++) {
 					if (startStop != endStop)
 						feesOfRoute[startStop][endStop] = Math.min(feesOfRoute[startStop][endStop],
@@ -198,7 +198,7 @@ ex) K번째 수 문제
 				}
 			}
 		}
-		
+
 ex) 1->4 사이의 최단 경로
 	
 	feesOfRoute[startStop][throughStop] + feesOfRoute[throughStop][endStop]
@@ -215,15 +215,17 @@ throughStop -> endStop은 각각 startStop(throughStop) -> endStop
 	feesOfRoute[startStop][throughStop] + feesOfRoute[throughStop][endStop]
 
  으로 루프 내에서 최단 경로가 구해진 값을 더하기 때문에 두 값
- 
+
 	feesOfRoute[startStop][throughStop] + feesOfRoute[throughStop][endStop] 
- 
+
  만 더해주면 된다.
- 
+
+---
+
 #### combination
 
 	doCombination(int[] source, int n, int r, int[] selectedIndice, int selectedIndex);
-	
+
 source : 원소를 선택할 배열
 
 n : source 배열의 크기(전체 원소의 개수)
@@ -235,11 +237,108 @@ selectedIndice : 선택된 source의 index 들어갈 배열
 seletedIndex : selectedIndice의 index, source에서 원소가 선택될 때마다 selectedIndex에 초기화 되고 1씩 증가 시켜준다.
 			   (선택되지 않으면 source의 다음 인덱스(target)를 선택하므로 값을 증가시키지 않는다.)
 
- 
+---
+
 #### 최대공약수 / 최소공배수
- 
+
 3개 이상의 수의 최대공약수 / 최소공배수는
 
 두 수의 최대공약수 / 최소공배수를 구한 값과 나머지 값의 최대공약수 / 최소공배수를 구하면 된다.
- 
- 
+
+---
+
+#### MST(Minumum Spanning Tree) 구하기
+
+Spanning Tree : 모든 노드가 직 / 간접적으로 연결 + 사이클 발생X
+
+Minumum Spanning Tree : 간선의 가중치의 합을 최소로 만든 Spanning Tree
+
+구현 알고리즘
+
+- 크루스칼
+
+  - 연결된 노드끼리는 번호가 낮은 것이 부모인 것으로 가정한다.
+  - [node1,node2, 가중치]
+    1. 해당 값을 가지는 배열을 가중치 오름차순으로 정렬 
+    2. 배열을 돌면서 사이클이 발생하지 않는 노드를 연결(Union-Find 알고리즘 사용)
+    3. 배열을 끝까지 돌면 끝
+
+  - 코드
+
+  - ```java
+        
+    public void solution(){
+        int n = 5; // 노드의 개수
+        roots = new int[n+1]; // roots[1] = 1번 노드의 부모 노드 번호
+    	
+        // 맨 처음에는 부모 = 본인을 가르키도록 초기화(루트일 경우만 제외하고 변경 된다.)
+        // 초기에 연결된 값이 있을 경우 그 값으로 초기화 해주면 된다.(ex) network문제)
+        for(int parentI = 1; parentI < roots.length; parentI++) {
+            roots[parentI] = parentI;
+        }
+        
+        int[][] repair = {{2,4,8}, {2,8,10},{8,7,15},{6,4,2},{10,7,1},{10,6,5}};
+        
+        // 가중치 오름차순으로 정렬
+        Arrays.sort(repair, new Comparator<int[]>() {
+                @Override
+                public int compare(int[] o1, int[] o2) {
+                    return Integer.compare(o1[2], o2[2]);
+                }
+        });
+        
+        
+        
+        for(int repairI = 0; repairI < repair.length; repairI++) {
+                int[] currentRepair = repair[repairI];
+            
+    			// root가 다를 경우 root끼리 연결해 같은 루트를 가지도록 한다.
+                if(!areSameRoot(currentRepair[0], currentRepair[1])){
+                    answer += currentRepair[2];
+                    union(currentRepair[0], currentRepair[1]);
+                }
+            }
+    }
+    
+    // 루트를 찾으면서 루트가 아닌 바로 위 부모로 초기화 되어 있는 경우 루트로 초기화 해준다.
+    public int findRoot(int node) {
+        	// 루트 노드면
+            if(roots[node] == node) {
+                return node;
+            }
+    		
+        	// 아니면 루트가 나올 때까지 재귀로 호출해서 찾는다.
+            roots[node] = findRoot(roots[node]);
+    
+            return roots[node];
+        }
+    
+        
+    public boolean areSameRoot(int node1, int node2) {
+    
+            node1 = findRoot(node1);
+            node2 = findRoot(node2);
+    
+            return node1 == node2;
+    
+        }
+    
+    // 루트가 다를 경우 같은 루트를 가지도록 두 노드를 연결해준다.
+    // 번호가 낮은 노드를 루트로 한다.
+    public void union(int node1, int node2) {
+    		// areSameRoot에서 이미 루트를 구한 상태
+            int parentNode1 = roots[node1];
+            int parentNode2 = roots[node2];
+    
+            if(parentNode1 > parentNode2)
+                roots[parentNode1] = parentNode2;
+            else if(parentNode1 < parentNode2)
+                roots[parentNode2] = parentNode1;
+    }
+    ```
+
+  
+
+- 프림
+
+---

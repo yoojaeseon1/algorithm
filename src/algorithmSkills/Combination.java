@@ -16,7 +16,7 @@ public class Combination {
 		
 	}
 
-	// combination using for loop 1 (이걸로 통일하자)
+	// combination using for loop 1(DFS처럼 탐색한다.(자식으로 재귀로 들어가서 탐색))
 
 	// nextIndex 없이 모든 loop를 0부터 하면 순열로 사용할 수 있다.
 
@@ -42,6 +42,30 @@ public class Combination {
 		}
 
 	}
+
+	// BFS처럼 탐색한다.(1개 전부 탐색 ~ n개 전부 탐색)
+	// 필요에 따라 사용하면 된다.(최솟값을 찾는 경우 유용)
+
+	public void doCombination(int[] source, int n, int r, int[] selectedIndices, int selectedIndex, int targetIndex) {
+
+		if (r == 0) {
+
+			for (int si = 0; si < selectedIndex; si++) {
+				System.out.print(source[selectedIndices[si]] + " ");
+
+			}
+
+		} else if (targetIndex == n) {
+			return;
+
+		} else {
+			selectedIndices[selectedIndex] = targetIndex;
+
+			doCombination(source, n, r - 1, selectedIndices, selectedIndex + 1, targetIndex + 1);
+
+			doCombination(source, n, r, selectedIndices, selectedIndex, targetIndex + 1);
+		}
+	}
 	
 	// combination using for loop 2
 	
@@ -63,28 +87,7 @@ public class Combination {
 	}
 
 	
-	// other method name : searchAllRoute, searchAllCases
-	
-	public void doCombination(int[] source, int n, int r, int[] selectedIndices, int selectedIndex, int targetIndex) {
 
-		if (r == 0) {
-			
-			for (int si = 0; si < selectedIndex; si++) {
-				System.out.print(source[selectedIndices[si]] + " ");
-				
-			}
-
-		} else if (targetIndex == n) {
-			return;
-
-		} else {
-			selectedIndices[selectedIndex] = targetIndex;
-
-			doCombination(source, n, r - 1, selectedIndices, selectedIndex + 1, targetIndex + 1);
-
-			doCombination(source, n, r, selectedIndices, selectedIndex, targetIndex + 1);
-		}
-	}
 	
 	
 	public static int computeCombiValue(int n, int r) {

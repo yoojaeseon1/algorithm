@@ -20,8 +20,8 @@
           case 'T':
               currentPoint = (int)Math.pow(Integer.parseInt(dartResult.substring(pointStartIndex, dartResultI)),3);
               break;
-		 default : 
-			  System.out.println("execute default");
+    	 default : 
+    		  System.out.println("execute default");
       }
 
 각 case마다 break를 해주지 않으면 다음 case로 넘어가서 확인한다.
@@ -64,13 +64,13 @@ Java 7버전 전에는 switch의 인자로 int 타입 변수만 올 수 있었�
 ##### Queue 선언/메소드
 
 	Queue<Integer> queue = new LinkedList<>();
-
+	
 	queue.add() // enqueue(include exception)
-
+	
 	queue.offer() // enqueue(exclude exception)
-
+	
 	queue.poll() // dequeue
-
+	
 	queue.peek() // check recent added element
 
 ---
@@ -145,7 +145,7 @@ nextToken(delim)실행 시 남아있는 문자열의 시작에는 해당 delim�
 		System.out.println(st.nextToken("s")); // 반환값 : "$1", 남아있는 문자열 : "string$1shaha"
 		System.out.println(st.nextToken()); // 반환값 : tring$1, 남아있는 문자열 : "shaha"
 		System.out.println(st.nextToken()); // delim이 "s"로 적용되서 haha를 출력한다.
-		
+
 하나의 delim으로 계속 nextToken을 반환 시킬 때는 크게 신경 쓸 필요없이 해당 delim으로 문자열이 나워져 token이 된다고 생각하자.
 
 ---
@@ -204,12 +204,12 @@ replaceFirst, replaceLast는 하나만
 #### ArrayList를 배열로
 
 	List<String> list = new ArrayList<String>();
-
+	
 	list.add("abc");
 	list.add("def");
-
+	
 	String[] array = list.toArray(new String[list.size()]);
-
+	
 	// 배열이 래퍼클래스의 배열일 경우만 사용가능하다.
 
 ---
@@ -225,7 +225,7 @@ ex) 첫 번째 인덱스 오름차순 -> 같으면 두 번째 인덱스 오름�
 
 
 		Arrays.sort(coordiArr, new Comparator<int[]>() {
-
+	
 			@Override
 			public int compare(int[] o1, int[] o2) {
 				
@@ -243,7 +243,7 @@ Integer.compare(o2,o1); // 내림차순(가장 큰 것이 1등)
 ##### 내부 배열의 인덱스가 길 경우 정렬 방법
 
 		Collections.sort(routes, new Comparator<List<String>>(){
-
+	
 			@Override
 			public int compare(List<String> o1, List<String> o2) {
 				
@@ -258,7 +258,7 @@ Integer.compare(o2,o1); // 내림차순(가장 큰 것이 1등)
 				
 				return 0;
 			}
-
+	
 		});
 
 ##### list
@@ -283,15 +283,16 @@ Integer.compare(o2,o1); // 내림차순(가장 큰 것이 1등)
 				this.alphabet = alphabet;
 				this.count = count;
 			}
-			
-			
-			
+	
+	
+	​		
+	​		
 			@Override
 			public int compareTo(Alphabet o) {
 				
 				return Integer.compare(o.getCount(), this.count);
 			}
-	
+		
 			// getter, setter..
 		
 		}
@@ -320,17 +321,17 @@ Comparator 인터페이스의 compare(Object o1, Object o2){} 를 구현하여 �
 compare(Object o1, Object o2)에서의 리턴 값
 
 	// 오름차순
-
+	
 	if(o1 > o2) return 1 ;
 	else if(o1 == o2) return 0;
 	else return -1;
 	
 	// 내림차순
-
+	
 	if(o1 > o2) return -1;
 	else if(o1 == o2) return 0;
 	else return -1;
-	
+
 String의 경우 사전순, 문자열의 길이, 문자이지만 숫자의 크기로 정렬하는 것처럼 다양하게 구현할 수 있다.
 
 - list의 내림차순 정렬 참고(Collections.sort 대신 Arrays.sort를 사용한다.)
@@ -339,19 +340,19 @@ String의 경우 사전순, 문자열의 길이, 문자이지만 숫자의 크�
 
 	String a = "haha";
 	String b = "hoho";
-
+	
 	// 리턴 값으로
 	
 	o1.compareTo(o1); 오름차순
-	
+
 o1-o2의 값을 리턴한다.
 	
 	o2.compareTo(o2); 내림차순
-	
+
 o2-o1의 값을 리턴한다.
 	
 
-	
+​	
 
 ##### 오름차순
 
@@ -362,7 +363,7 @@ o2-o1의 값을 리턴한다.
 Comparator 인터페이스를 구현 할 경우에는 기본형이 아닌 래퍼클래스의 배열을 사용해야 한다.(한 번만 사용할 경우 익명클래스로 바로 Arrays.sort함수에 인자로 넣으면 된다.)
 
 	class Descending implements Comparator<Integer>{
-
+	
 		@Override
 		public int compare(Integer o1, Integer o2) {
 			
@@ -379,7 +380,7 @@ Comparator 인터페이스를 구현 할 경우에는 기본형이 아닌 래퍼
 메인 메소드	
 	
 	Integer arr = {1,3,6,4,3,2}; // Comparator 인터페이스에서 기본형 타입으로는 정렬이 안되므로 래퍼클래스의 인스턴스를 생성해야한다.
-
+	
 	Arrays.sort(arr, new Descending());
 	
 	// 또는
@@ -392,9 +393,9 @@ Comparator 인터페이스를 구현 할 경우에는 기본형이 아닌 래퍼
 			else if (o1==o2) return 0;
 			else return 1;
 	});
-
+	
 	// 또는
-
+	
 	Arrays.sort(arr, Collections.reverseOrder()); 
 	// 속도 차이는 거의 없으니 이거 쓰는게 훨씬 간편하다.(기본 자료형 배열도 가능, Comparator인터페이스를 구현한 것이 아니니까)
 	
@@ -407,7 +408,7 @@ Comparator 인터페이스를 구현 할 경우에는 기본형이 아닌 래퍼
 			
 			return Integer.compare(o2,o1); // 인자에 int형으로 들어가도 알아서 오토박싱해준다.(메소드의 인자는 원래 int형이다.)
 	});
-	
+
 
 #### List의  정렬(람다식 사용)
 
@@ -418,12 +419,13 @@ Comparator 인터페이스를 구현 할 경우에는 기본형이 아닌 래퍼
 ##### 내림차순
 
 	List<Integer> list = new ArrayList<Integer>();
-
+	
 	Collections.sort(list, (o1, o2)->o2-o1); // 첫 번째 인자만 넣으면 오름차순 정렬
 
-	
-	// 문자열 정렬
 
+​	
+	// 문자열 정렬
+	
 	Collections.sort(nList, (o1,o2)->Integer.parseInt(o1)-Integer.parseInt(o2)); // 문자열을 숫자 순서대로  오름차순 정렬
 	
 	Collections.sort(nList, (o1,o2)->Integer.parseInt(o2)-Integer.parseInt(o1)); // 문자열을 숫자 순서대로  내림차순 정렬
@@ -431,7 +433,7 @@ Comparator 인터페이스를 구현 할 경우에는 기본형이 아닌 래퍼
 	Collections.sort(nList, (o1,o2)->o1.compareTo(o2)); // 사전 순서대로 오름차순 정렬 (ex)123 > 1000 : 문자 순서대로면 두번 째 인덱스에 오는 수가 123이 더 크니까)
 	
 	Collections.sort(nList, (o1,o2)->o2.compareTo(o1)); // 사전 순서대로 내림차순 정렬 (ex)123 > 1000 : 문자 순서대로면 두번 째 인덱스에 오는 수가 123이 더 크니까)
-	
+
 Collections.reverse(list)는 정렬이 아니라 인덱스를 반대로 재 배열 해준다.
 
 ---
@@ -466,7 +468,7 @@ ex)
 	System.out.println(b.name); // output : yoo
 	a.setName("changed name");
 	System.out.println(b.name); // output : changed name
-	
+
 ###### deep copy
 
 하지만 String을 포함한 래퍼클래스의 인스턴스와 기본형 변수는 deep copy가 된다.
@@ -490,11 +492,11 @@ ex)
 	List<String> source = new ArrayList<>();
 	source.add("abc");
 	source.add("def");
-
-	List<String> destination = new ArrayList<>();
-
-	destination.addAll(source);
 	
+	List<String> destination = new ArrayList<>();
+	
+	destination.addAll(source);
+
 ###### set의 deepCopy
 
 	Set<Integer> source = new HashSet<>();
@@ -503,7 +505,7 @@ ex)
 	source.add(3);
 	
 	Set<Integer> destination = new Hashset<>(source); // deepcopy가 된다.
- 
+
 ###### List의 deep copy
 
 	List<Integer> source = new ArrayList<>();
@@ -515,13 +517,14 @@ ex)
 		source.add(5);
 		
 	List<Integer> copied = new ArrayList<>(source);
-	
+
 - List를 생성할 때 생성자의 파라미터로 copy할 source List를 넣어주면 된다.
 
 - 주의사항
 
 		List<Integer> copied = source.subList(0, source.size());
-		
+	
+
 subList는 view를 리턴하기 때문에 같은 객체를 참조하므로 shallow copy가 된다.
 
 ---
@@ -557,7 +560,7 @@ deep copy
 	test2[0] = 5;
 		
 	System.out.println(testStack.pop()[0]); // push될 때 shallow copy되서 들어가기 때문에 push된 배열도 영향을 받는다.
-	
+
 인자로 들어가는 모든 경우에  shallow copy된다.
 
 		boolean[] source = new boolean[26];
@@ -569,7 +572,7 @@ deep copy
 		source[5] = true;
 		
 		System.out.println(test.getVisited()[5]); // output : 5
-		
+
 복사해서 사용하려면 필드를 사용한 생성자에서 System.arrayCopy()메소드를 사용해야 한다.
 	
 ###### deep copy
@@ -580,21 +583,21 @@ deep copy
 	System.arraycopy(original,0,copied,0,original.length); 
 	
 	// deep copy가 되어 original의 값이 수정되어도 copied의 값에는 아무런 영향이 없다.
-	
+
 ###### 2차원 배열 deep copy
 
 여러번 쓸거면 이렇게 만들어서 쓰고 아니면 main문에 똑같이 작성하자
 
 	static int[][] copyArray(int[][] original) {
-
+	
 		int[][] copied = new int[original.length][original[0].length];
-
+	
 		for (int i = 0; i < original.length; i++) {
 			System.arraycopy(original[i], 0, copied[i], 0, original[i].length);
 		}
-
+	
 		return copied;
-
+	
 	}
 ---
 
@@ -605,7 +608,7 @@ deep copy
 의 의미는
 
 	int[] source = new int[4];
-
+	
 	source[0] = 1;
 	source[1] = 2;
 	source[2] = 3;
@@ -614,7 +617,7 @@ deep copy
 와 같다.
 
 	int[] sameElements = {1,2,3,4};
-	
+
 를 만들어도 두 배열은 아예 다른 주소값을 가지므로 deep copy한 것과 같은 형태가 된다.
 
 그래도 원소의 개수가 많거나 초기화하는 값이 복잡하면 인덱스 별로 초기화 해주는 것이 가독성이 더 높은 것 같다.
@@ -625,9 +628,9 @@ deep copy
 BingInteger, BigDecimal 을 사용하자
 
 	BigInteger a = new BigInteger(String);
-
+	
 	BigInteger b = new BigInteger(String);
-
+	
 	a = a.add(b); // a 와 b를 더한다.
 
 
@@ -647,7 +650,7 @@ StringBuilder.append(String a) // a를 리턴한다.
 
 
 	int[][] array5 = new int[3][];
-
+	
 	array5[0] = new int[1];
 	array5[1] = new int[2];
 	array5[2] = new int[3]; 
@@ -661,7 +664,7 @@ StringBuilder.append(String a) // a를 리턴한다.
 ex) 
 
 	String[] a = b.split("\*");
-	
+
 그냥 "+"만 인자로 넣으면 PatternSyntaxException을 반환한다.
 
 ---
@@ -674,25 +677,25 @@ ex)
 
 
 	class ValueComparator implements Comparator<Character> {
-
+	
 		Map<Character, Integer> map;
-
+	
 		public ValueComparator(Map<Character, Integer> map) {
-
+	
 			this.map = map;
-
+	
 		}
-
+	
 		@Override
 		public int compare(Character o1, Character o2) {
-
+	
 			if (map.get(o1) >= map.get(o2)) {  // map.get(o1) <= map.get(o2) 일 경우 오름차순정렬
 				return -1;
 			} else {
 				return 1;
 			}
 		}
-
+	
 	}
 
 ---
@@ -716,9 +719,9 @@ ex)
 
 	StringBuilder str1 = new StrigBuilder("haha");
 	StringBuilder str2 = new StrigBuilder("haha");
-
+	
 	// 같은지 확인할 때
-
+	
 	if(str1.toString().equals(str2.toString())) {
 		System.out.println("equals");
 	}
@@ -769,7 +772,7 @@ ex)
 	Set<String> wordsSet = new Hashset<>(strList); // 인자로 배열을 Arrays.asList(배열)로 입력해도 된다.
 	
 	wordsList = new ArrayList<>(wordsSet);
-	
+
 ---
 
 #### main문 안에서의 초기화
@@ -783,7 +786,7 @@ ex)
 #### map에서 key뽑아 반복문 돌리는 방법
 
 		Set<Character> keySet = nameMap.keySet();
-
+	
 		Iterator keyIter = keySet.iterator();
 		
 		while (keyIter.hasNext()) {
@@ -812,7 +815,7 @@ import java.util.Map.Entry;
 
         Iterator<Entry<String, List<int[]>>> entryIter = genreToPlay.entrySet().iterator();
         List<Genre> sumPlaysOfGenre = new ArrayList<>();
-
+    
         while(entryIter.hasNext()) {
             
             Entry<String, List<int[]>> genreAndPlay = entryIter.next();
@@ -828,7 +831,7 @@ import java.util.Map.Entry;
             for(int songsI = 0; songsI < songs.size(); songsI++) {
                 
                 sumPlay += songs.get(songsI)[1];
-
+    
             }
             sumPlaysOfGenre.add(new Genre(genre, sumPlay));
         }
@@ -859,7 +862,7 @@ ex)
 String은 문자열 크기 순, Integer는 숫자 크기 순으로 정렬된다.(숫자와 숫자로 된 문자열은 정렬 기준이 다르다.)
 
 ---
-	
+
 #### LinkedHashMap / LinkedHashSet
 
 HashMap과 HashSet은 순서가 없지만 
@@ -869,7 +872,7 @@ LinkedHashMap과 LinkedHashSet은 입력된 순서를 보장한다.(Map은 key�
 사용법은 기존의 Map, Set과 동일
 
 ---
-	
+
 #### Object 타입 배열의 활용 방법 
 
 Object배열보다는 해당 자료형,인스턴스를 필드로 가지는 클래스를 만들어 그 인스턴스를 넣어주는 것이 더 편리하다.(꺼낼 때 캐스팅 할 필요X)
@@ -879,21 +882,21 @@ Object배열보다는 해당 자료형,인스턴스를 필드로 가지는 클�
 여러 타입의 자료형, 인스턴스를 한번에 push, enqueue(add, offer <-> poll) 할 때 사용할 수 있다.
 
     Stack<Object[]> boardStack = new Stack<>();
-
-	Object[] curPosition = new Object[3];
-	StringBuilder movedRoute = new StringBuilder();
-	movedRoute.append(board[0][0]);
-	curPosition[0] = 0;
-	curPosition[1] = 0;
-	curPosition[2] = movedRoute;
-	boardStack.push(curPosition);
-	
-	// 각각 다운캐스팅 해야 해당 인스턴스의 메소드를 사용할 수 있다.(안하면 overriding되지 않은 Ojbect 타입의  메소드만 사용가능)
-	
-	curPosition = boardStack.pop();
-	curX = (int) curPosition[0];
-	curY = (int) curPosition[1];
-	movedRoute = (StringBuilder) curPosition[2];
+    
+    Object[] curPosition = new Object[3];
+    StringBuilder movedRoute = new StringBuilder();
+    movedRoute.append(board[0][0]);
+    curPosition[0] = 0;
+    curPosition[1] = 0;
+    curPosition[2] = movedRoute;
+    boardStack.push(curPosition);
+    
+    // 각각 다운캐스팅 해야 해당 인스턴스의 메소드를 사용할 수 있다.(안하면 overriding되지 않은 Ojbect 타입의  메소드만 사용가능)
+    
+    curPosition = boardStack.pop();
+    curX = (int) curPosition[0];
+    curY = (int) curPosition[1];
+    movedRoute = (StringBuilder) curPosition[2];
 
 ---
 
@@ -912,7 +915,7 @@ ex)
 	public void funcA(double x, int y, int z) {
 		...
 	}
-	
+
 
 메소드명은 같지만 인자 리스트의 구성이 다르기 때문에  오버로딩이 되는 것이다.
 
@@ -922,7 +925,7 @@ ex)
 
 
 		PriorityQueue<Integer> scovilles = new PriorityQueue<>(new Comparator<Integer>(){
-
+	
 			@Override
 			public int compare(Integer o1, Integer o2) {
 				
@@ -930,12 +933,12 @@ ex)
 			}
 			
 		});
-
+	
 		scovilles.add(2);
 		scovilles.add(3);
 		scovilles.add(4);
 		scovilles.add(1);
-
+	
 		System.out.println(scovilles.poll()); // output : 4
 
 와 같은 방식으로 Comparator 인터페이스를 구현해 사용 할 수 있다.
@@ -949,13 +952,13 @@ ex)
 #### Set의 elements를 List에 바로 넣기
 
 	Set<Integer> testSet = new HashSet<>();
-
+	
 	List<Integer> testList = new ArrayList<>(testSet);
 
 또는
 	
 	Map<Integer, List<int[]>> levelToX = new HashMap<>();
-
+	
 	List<Integer> levels = new ArrayList<>(levelToX.keySet());
 
 또는 (List인스턴스 생성이후)
@@ -1002,7 +1005,7 @@ $ : 문자열의 종료
 \+ : 앞 문자가 하나 이상
 
 ? : 앞 문자가 없거나 하나있음
- 
+
 [] : 문자의 집합이나 범위를 나타내며 두 문자 사이는 - 기호로 범위를 나타낸다. []내에서 ^가 선행하여 존재하면 not 을 나타낸다.
      범위(ex) {1,4})를 지정하지 않으면 문자 하나를 의미한다.
 
@@ -1029,12 +1032,13 @@ $ : 문자열의 종료
 
 (?i) : 앞 부분에 (?i) 라는 옵션을 넣어주면 대소문자를 구분하지 않음
 
-
-자주쓰이는 match 패턴
+##### 자주쓰이는 match 패턴
 
 이메일 : "[0-9A-Za-z]{1,15}@[a-z]{1,10}.[a-z]{1,5}"
 
 주민등록번호 : "\\d{6}-[1-4]\\d{6}"
+
+특정 패턴(예시는 숫자)이 포함되어 있는지 : .*[0-9].*
 
 		String pattern = "[0-9A-Za-z]{1,15}@[a-z]{1,10}.[a-z]{1,5}";
 		
@@ -1072,26 +1076,26 @@ $ : 문자열의 종료
 
 - [] 안에서 \를 사용할 때는 한 번 더 입력해야 된다.
 
-- {시작,끝} : 정규표현식에 맞는 문자가 시작 이상 끝 이하인 길이 일 경우에만 적용(+를 사용할 경우 길이 1 이상)
+- {시작,끝} : 정규표현식에 맞는 문자가 시작 이상 끝 이하인 길이 일 경우에만 적용(+를 사용할 경우 길이 1 이상, 시작만 지정하면 시작 이상)
 
 ex)
 
 	String expression = "100-200*300-500+20";
-
+	
 	String[] symbols = expression.split("[^\\+\\-\\*]{1,3}"); // 길이 1이상 3이하
-
+	
 	System.out.println(Arrays.toString(symbols));
-
+	
 	symbols = expression.split("[^\\+\\-\\*]+"); // 길이 1이상	
-
+	
 	System.out.println(Arrays.toString(symbols));
-
+	
 	symbols = expression.split("[0-9]+"); // 길이 1이상
-
+	
 	System.out.println(Arrays.toString(symbols));
-
+	
 	symbols = expression.split("\\d+"); // 길이 1이상
-
+	
 	System.out.println(Arrays.toString(symbols));
 
 출력
@@ -1109,18 +1113,18 @@ ex)
 
 으로 같다.
 
-	
+​	
 
 ###### ^를 사용할 때
-	
+
 	String[] numbers = expression.split("[^0-9]");
 	String[] numbers = expression.split("^[0-9]");
-	
+
 출력
 
 	[100, 200, 300, 500, 20]
 	[, 00-200*300-500+20]
-
+	
 	- [^0-9] : 숫자를 제외한 문자([]안의 ^는 제외의 의미)
 	- ^[0-9] : 숫자로 시작하는 문자열([] 밖에서의 ^는 시작의 의미)
 
@@ -1131,13 +1135,13 @@ ex)
 ex)
 
 	String test = "a12b34c56d";
-
+	
 	String[] splitedTest = test.split("[0-9]{2,4}");
-
+	
 	for(int splitedI = 0; splitedI < splitedTest.length; splitedI++) {
 		System.out.print(splitedTest[splitedI] + " ");	// 출력 : a b c d 
 	}
-
+	
 	// 구분되는 문자를 길이 2~4인 숫자로 한다. {}안에 숫자 하나만 쓸 경우 딱 그 길이의 숫자인 경우만 구분자로 사용한다.
 
 자주 쓰는 정규 표현식(여러개를 붙여서 쓸 수도 있다.)
@@ -1168,16 +1172,18 @@ ex)
 
 [x+] : x가 한 번 이상 나옴 
 
-[a-z&&[^bc]] : b와 c를 제외한 a 부터 z까지 중의 하나와 일치하는 것
+```[a-z&&[^bc]] ```
 
-[]안에 특정 문자만 넣어서 할 수도 있다.(메타문자일 경우 문자 앞에 \\추가)
+b와 c를 제외한 a 부터 z까지 중의 하나와 일치하는 것
+
+[]안에 특정 문자만 넣어서 할 수도 있다.(메타문자일 경우 문자 앞에 \\\추가)
 
 ex)
 
 	String dartResult = "1S2D*3T";
-
+	
 	String[] splitedDart = dartResult.split("[SDT#*]{1,2}"); 
-
+	
 	// 알파벳 'S', 'D', 'T'와 '#', '*'가 포함된 1~2길이의 문자
 
 
@@ -1187,7 +1193,7 @@ SDT가 순서대로 나오지 않아도 된다. DS같은 문자가 나와도 구
 ex)
 
 	String dartResult = "1S2D*3T";
-
+	
 	String[] splitedDart = dartResult.split("[A-Z#*]{1,2}"); // 알파벳 대문자와 '#', '*'가 포함된 1~2길이의 문자
 
 
@@ -1247,23 +1253,24 @@ XOR : 두개의 숫자가 다르면 1
 
 		System.out.println(Integer.toBinaryString(42));  // 2진수 : 101010
 		System.out.println(Integer.toBinaryString(27));  // 2진수 : 11011
-
+	
 		// 계산할 때 27의 자리수가 부족한 만큼 앞을 0으로 채우고 계산한다.
-
+	
 		// 101010
 		// 011011
-
+	
 		System.out.println(Integer.toBinaryString(27|42)); // 111011
 		System.out.println(Integer.toBinaryString(27&42)); // 1010(001010이지만 앞에 있는 0은 생략된다.)
 		System.out.println(Integer.toBinaryString(27^42)); // 110001
-		
-		
+
+
+​		
 		System.out.println(Integer.toBinaryString(42)); // 2진수 : 101010
 		System.out.println(Integer.toBinaryString(7));  // 2진수 : 111
-
+	
 		// 101010
 		// 000111
-
+	
 		System.out.println(Integer.toBinaryString(42|7)); // 101111
 		System.out.println(Integer.toBinaryString(42&7)); // 10
 		System.out.println(Integer.toBinaryString(42^7)); // 101101
@@ -1300,19 +1307,19 @@ i가 1씩 증가할 때마다 값이 절반으로 나눠진다.
 
 ##### replace vs replaceAll
 
-	
+​	
 
 	String test = "12341";
-
+	
 	test = test.replace("1", "a");
-
+	
 	System.out.println(test) // a234a
 
 
 	String testAll = "12341";
-
+	
 	testAll = test.replaceAll("1", "a");
-
+	
 	System.out.println(testAll) // a234a
 
 
@@ -1328,13 +1335,16 @@ String type의 변수를 모두 소문자 / 대문자로 변환시킨 String을 
 ex)
 
 	String str1 = "AA1+aa2";
-
+	
 	str1.toLowerCase();  // 이렇게 한다고 해도 str1이 변환되는 것이 아니다. 다른 String 변수에 초기화 해야한다.
-
+	
 	str2 = str1.toLowerCase();
-
+	
 	System.out.println(str2) // aa1+aa2
 
-	
+
+​	
 
 ---
+
+[^bc]: 

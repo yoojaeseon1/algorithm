@@ -5,18 +5,18 @@ public class FloydWarshall {
 
     /*
      * 플로이드 와샬 알고리즘
-     * - 모든 노드의 부분 경로에 대한 최소 경로를 구하는 알고리즘
+     * - 모든 노드의 부분 경로에 대해서 가중치의 합이 최소가 되는 경로를 구하는 알고리즘
      * - DP를 기반으로 한다.
-     * - O(n^3) 이지만 DFS보다 훨씬 효율적이다.
+     * - O(n^3) 이지만 DFS보다 훨씬 효율적이다.(카카오에서도 효율성 통과하는 것으로 봐선 괜찮다.)
      *
      * 포인트
-     * - minFare[a][b] : a -> b로 가는 최소 비용(경유한 것까지 포함)
-     * - minFare[a][b] = Math.min(minFare[a][b], minFare[a][via]+minFare[via][b])
-     * - a == via 또는 bia == b 또는 a==b인 경우는 제외한다.
+     * - minFare[start][end] : start -> end로 가는 최소 비용(경유한 것까지 포함)
+     * - minFare[start][end] = Math.min(minFare[start][end], minFare[start][via]+minFare[via][end])
+     * - start == via 또는 end == via 또는 start == end인 경우는 제외한다.
      *      - 경유지의 의미가 없어지니까
-     *          - [a][via] -> [via][b] 일 때, a==via면 [a][via]==0이기 때문에 [via][b]만 계산해도 되는 것이기 때문이다.
-     *          - 그 경우는 [via][b]가 [start][end]일 경우에 계산 된다. 여기서 한 번 더 할 필요가 없다.(via == b의 경우도 마찬가지)
-     *          - a == b는 minFare[a][b] == 0이기 때문에 사전에 0으로 초기화 되어있기 때문에 한 번 더 할 필요가 없다.
+     *          - [start][via] -> [via][end] 일 때, start == via면 [start][via]==0이기 때문에 [via][end]만 계산해도 되는 것이기 때문이다.
+     *          - 그 경우는 [via][end]가 [start][end]일 경우에 계산 된다. 여기서 한 번 더 할 필요가 없다.(via == end의 경우도 마찬가지)
+     *          - start == end는 minFare[start][end] == 0이기 때문에 사전에 0으로 초기화 되어있기 때문에 한 번 더 할 필요가 없다.
      *      
      *
      *
@@ -39,20 +39,20 @@ public class FloydWarshall {
     public int searchFloydWarshall(int n, int a, int b, int[][] fares) {
 
         // minFare[a][b] : a -> b로 가는 최소 비용(경유한 것까지 포함)
-        int[][] minFares = new int[n][n];
+        int[][] minCost = new int[n][n];
 
         for(int fieldI = 0; fieldI < n; fieldI++) {
             for(int fieldJ = 0; fieldJ < n; fieldJ++) {
                 if(fieldI != fieldJ)
-                    minFares[fieldI][fieldJ] = 100000000; // 직접 경로가 없는 경우(아래에서 직접 경로를 초기화 해주면 초기화 안된 부분만 이 값이 된다.)
+                    minCost[fieldI][fieldJ] = 100000000; // 직접 경로가 없는 경우(아래에서 직접 경로를 초기화 해주면 초기화 안된 부분만 이 값이 된다.)
             }
         }
 
         for(int faresI = 0; faresI < fares.length; faresI++) {
             int[] fare = fares[faresI];
 
-            minFares[fare[0]-1][fare[1]-1] = fare[2];
-            minFares[fare[1]-1][fare[0]-1] = fare[2];
+            minCost[fare[0]-1][fare[1]-1] = fare[2];
+            minCost[fare[1]-1][fare[0]-1] = fare[2];
 
         }
 
@@ -61,19 +61,22 @@ public class FloydWarshall {
                 if(via == start)
                     continue;
                 for(int end = 0; end < n; end++) {
+
                     if(via == end || start == end)
                         continue;
 
-                    int startToEnd = minFares[start][end];
+                    int startToEnd = minCost[start][end];
+                    int startToVia = minCost[start][via];
+                    int viaToEnd = minCost[via][end];
 
-                    minFares[start][end] = Math.min(startToEnd, minFares[start][end] + minFares[via][end]);
+                    minCost[start][end] = Math.min(startToEnd, startToVia + viaToEnd);
 
                 }
             }
         }
 
 
-        return minFares[a][b];
+        return minCost[a][b];
     }
 
 
@@ -119,8 +122,10 @@ public class FloydWarshall {
                         continue;
 
                     int startToEnd = minFares[start][end];
+                    int startToVia = minFares[start][via];
+                    int viaToEnd = minFares[via][end];
 
-                    minFares[start][end] = Math.min(startToEnd, minFares[start][end] + minFares[via][end]);
+                    minFares[start][end] = Math.min(startToEnd, startToVia + viaToEnd);
 
                 }
             }

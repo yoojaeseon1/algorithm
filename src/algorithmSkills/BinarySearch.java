@@ -35,6 +35,7 @@ public class BinarySearch {
             int midIndexValue = numbers[midIndex];
 
             System.out.println("midIndex = " + midIndex);
+
             if(midIndexValue == target)
                 return midIndex;
             else if(target > midIndexValue) {

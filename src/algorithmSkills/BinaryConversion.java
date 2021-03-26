@@ -2,7 +2,7 @@ package algorithmSkills;
 
 public class BinaryConversion {
 	
-	// n Áø¹ý -> 10Áø¹ý
+	// n ï¿½ï¿½ï¿½ï¿½ -> 10ï¿½ï¿½ï¿½ï¿½
 	
 	public static int convertNToTen(String str, int n) {
 		
@@ -15,22 +15,31 @@ public class BinaryConversion {
 		return convertedNumber;
 		
 	}
-	
-	public static int convertTenToN(int ten, int n) {
-		
-		int value = ten;
+
+	public static String convertTenToN(int n, int number) {
+
+		StringBuilder calculatedNumber = new StringBuilder();
+		char[] alphabets = {'A','B','C','D','E','F'};
+
+		int value = number;
 		int remain = 0;
-		
-		StringBuilder answer = new StringBuilder();
-		
-		while(value >= n) {
+
+		while(value > 0) {
+
 			remain = value % n;
 			value /= n;
-			answer.insert(0, remain);
+
+			if(remain >= 10) {
+				calculatedNumber.insert(0, alphabets[remain - 10]);
+			} else
+				calculatedNumber.insert(0, remain);
 		}
-		answer.insert(0, value);
-		System.out.println("answer : " + answer);
-		return Integer.parseInt(answer.toString());
+
+
+		System.out.println("calculatedNumber = " + calculatedNumber);
+
+		return calculatedNumber.toString();
+
 	}
 	
 	public static void main(String[] args) {
@@ -41,7 +50,7 @@ public class BinaryConversion {
 		System.out.println(convertedNumber1);
 		System.out.println(convertedNumber2);
 		
-		int convertedToN = convertTenToN(convertedNumber1 + convertedNumber2, 8);
+		String convertedToN = convertTenToN( 8, convertedNumber1 + convertedNumber2);
 		System.out.println(convertedToN);
 	}
 

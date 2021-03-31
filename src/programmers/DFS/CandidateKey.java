@@ -91,7 +91,7 @@ public class CandidateKey {
                 for(int selectedI = 0; selectedI < selectedIndex; selectedI++) {
                     int column = columns.get(selectedIndices[selectedI]);
 
-                    content.append(relation[row][column]);
+                    content.append(relation[row][column]+",");
 
                 }
 

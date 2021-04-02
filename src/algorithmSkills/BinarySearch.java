@@ -6,6 +6,16 @@ package algorithmSkills;
 /**
  * 주의사항
  * - 오름차순 정렬이 되어있어야 한다.(내림차순도 가능하지만 아래의 코드는 오름차순 기준)
+ *
+ * 포인트
+ * - middle 인덱스의 값이 클 때 / 작을 때의 이동은 다 똑같다.
+ *      같을 때
+ *          - lower bound : endIndex--
+ *          - uppder bound : startIndex++
+ *          - 정확한 값을 찾을 때 : return
+ *
+ * - 배열 뿐만 아니라 특정 값의 범위가 주어졌을 때 평균 값을 구할 때도 쓰인다.
+ *      - 카카오 엔터프라이즈 공장 문제
  */
 
 public class BinarySearch {
@@ -34,7 +44,7 @@ public class BinarySearch {
             int midIndex = (startIndex + endIndex) / 2;
             int midIndexValue = numbers[midIndex];
 
-            System.out.println("midIndex = " + midIndex);
+//            System.out.println("midIndex = " + midIndex);
 
             if(midIndexValue == target)
                 return midIndex;

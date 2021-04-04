@@ -1,3 +1,20 @@
+##### 틀렸던 내용
+
+###### in 절의 조건으로 쿼리문 넣기
+
+- in절의 값으로 쿼리문의 결과 값을 넣을 수 있다.
+
+- 결과 값이 여러 개면 알아서 in절의 조건으로 들어간다.
+
+  ```mysql
+  select * from places where host_id in (select host_id from places group by host_id having count(host_id)>=2) order by id;
+  ```
+
+  - host_id가 2 이상인 모든 host_id를 place에서 조회할 수 있다.
+  - = 연산자로는 조회가 되지 않는다.
+
+---
+
 ##### 문제 풀 때
 
 출력할 속성명, 조건, 정렬방식을 꼭 확인하고 쿼리문을 작성하자

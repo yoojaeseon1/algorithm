@@ -1,9 +1,9 @@
 package programmers;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
+
+
 
 public class RemoteNode {
 
@@ -17,6 +17,13 @@ public class RemoteNode {
         System.out.println(test.solution(n, edge));
 
     }
+
+    /**
+     *
+     * @param n the number of node
+     * @param edge connection state of node
+     * @return distance count
+     */
 
     public int solution(int n, int[][] edge) {
 
@@ -85,35 +92,4 @@ public class RemoteNode {
 
 }
 
-class TreeNode{
 
-    private int nodeNumber;
-    private int distance;
-    List<TreeNode> connectedNodes;
-
-
-    public TreeNode() {
-        connectedNodes = new ArrayList<>();
-    }
-
-    public TreeNode(int nodeNumber) {
-        connectedNodes = new ArrayList<>();
-        this.nodeNumber = nodeNumber;
-    }
-
-    public int getNodeNumber() {
-        return nodeNumber;
-    }
-
-    public List<TreeNode> getConnectedNodes() {
-        return connectedNodes;
-    }
-
-    public int getDistance() {
-        return distance;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
-    }
-}

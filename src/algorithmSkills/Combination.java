@@ -13,6 +13,7 @@ public class Combination {
 //		ex.doCombination(source, n, r, selectedIndice, 0, 0);  // n = 5, r = 2
 		
 		System.out.println(computeCombiValue(4,2));
+
 		
 	}
 
@@ -44,6 +45,8 @@ public class Combination {
 	}
 
 	// BFS처럼 탐색한다.(1개 전부 탐색 ~ n개 전부 탐색)
+	// 너무 비효율 적이다. 10C5하고 10C6을 하면 10C6에서 10C5까지의 연산을 한 번 더 하면서 하나를 더 뽑는 것이기 때문에 굉장히 비효율 적이다.
+	// 그냥 위의 반복문 코드를 사용하는게 낫다.
 	// 필요에 따라 사용하면 된다.(최솟값을 찾는 경우 유용)
 
 	public void doCombination(int[] source, int n, int r, int[] selectedIndices, int selectedIndex, int targetIndex) {

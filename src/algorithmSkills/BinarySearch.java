@@ -3,6 +3,9 @@ package algorithmSkills;
 
 // 그림 참고 URL : https://hee96-story.tistory.com/80
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 주의사항
  * - 오름차순 정렬이 되어있어야 한다.(내림차순도 가능하지만 아래의 코드는 오름차순 기준)
@@ -30,6 +33,10 @@ public class BinarySearch {
         System.out.println(binarySearch.searchLowerBound(numbers, 3));
         System.out.println(binarySearch.searchUpperBound(numbers, 3));
 
+        Map<String, Integer> nameToCount = new HashMap<>();
+
+        nameToCount.getOrDefault("name", 0);
+
     }
 
     // search correct value
@@ -39,7 +46,7 @@ public class BinarySearch {
         int startIndex = 0;
         int endIndex = numbers.length - 1;
 
-        while(startIndex < endIndex) {
+        while(startIndex <= endIndex) {
 
             int midIndex = (startIndex + endIndex) / 2;
             int midIndexValue = numbers[midIndex];
@@ -99,8 +106,4 @@ public class BinarySearch {
 
         return startIndex;
     }
-
-
-
-
 }

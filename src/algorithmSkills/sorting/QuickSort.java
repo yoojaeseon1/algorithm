@@ -2,10 +2,25 @@ package algorithmSkills.sorting;
 
 import java.util.Arrays;
 
+/**
+ *
+ * 핵심
+ * - divideArray호출이 종료되는 시점에서 두 인덱스(left / right)가 만나는 지점은 정렬된 배열에서 정확히 그 위치를 찾은 지점이다.
+ * - 그렇기 때문에 그 기준으로 나눠서 재귀 호출을 통해 divide and conquer를 하는 것이다.
+ * - 위의 설명을 이해시키기 위한 방법을 생각해 봐야한다.
+ *
+ * swap의 의미
+ * - 둘다 값을 찾았을 때 : pivot값 기준으로 큰 값 / 작은 값을 정렬 한것
+ * - pivot과 교체할 때
+ * 		- left만 찾았을 때 : pivot보다 큰 값을 정렬한 것
+ * 	 	- right만 찾았을 때 : pivot보다 작은 값을 정렬한 것	
+ * 
+ */
+
 public class QuickSort {
 	
 	
-	// ��ó & ���� : https://palpit.tistory.com/126
+	// 출처 & 설명 : https://palpit.tistory.com/126
 
 	public static void main(String[] args) {
 
@@ -28,15 +43,15 @@ public class QuickSort {
 
 		while (left < right) {
 
-			// left �̵�(pivot�ε��� �� �̻��� ���� ã�� ������)
+			// left 이동(pivot인덱스 값 이상인 값을 찾을 때까지)
 			while ((arr[left] < pivotValue) && (left < right))
 				left++;
 
-			//right �̵�(pivot �ε��� �� �̸��� ���� ã�� ������)
+			//right 이동(pivot 인덱스 값 미만인 값을 찾을 때까지)
 			while ((arr[right] >= pivotValue) && (left < right))
 				right--;
 
-			// �Ѵ� ���� ã������
+			// 둘다 값을 찾았으면
 			if (left < right) {
 				int temp = arr[left];
 				arr[left] = arr[right];
@@ -44,9 +59,9 @@ public class QuickSort {
 			}
 		}
 
-		// ��������(2 ���� ���)
-		// 1. �� �� �ϳ��� ã��
-		// 2. pivot���� ������ (swap�ϸ� �ȵȴ�.)
+		// 만났으면(2 가지 경우)
+		// 1. 둘 중 하나만 찾고
+		// 2. pivot에서 만나고 (swap하면 안된다.)
 		if(pivotValue != arr[left]) {
 			arr[pivot] = arr[left];
 			arr[left] = pivotValue;
@@ -57,7 +72,6 @@ public class QuickSort {
 	}
 	
 	public void sortArray(int[] arr, int left, int right) {
-		
 		
 		if(left < right) {
 			int newPivotIndex = divideArray(arr, left, right);
